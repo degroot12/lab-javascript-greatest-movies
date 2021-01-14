@@ -12,15 +12,14 @@ function getAllDirectors(arr){
 
 function howManyMovies(arr){
     let steveDrama = 0
-      let onlySteve = arr.filter(movie =>{
-          return movie.director == "Steven Spielberg"
-      })
-      onlySteve.forEach(movie => {
+    let onlySteve = arr.filter(movie =>{
+        return movie.director == "Steven Spielberg"
+    })
+    onlySteve.forEach(movie => {
         if(movie.genre.includes("Drama")){
             steveDrama ++
         }
     })
-
     return steveDrama
   }
   
@@ -98,6 +97,39 @@ function orderAlphabetically(arr){
 
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
+
+
+function turnHoursToMinutes(arr){
+    const arrClone = JSON.parse(JSON.stringify(arr))
+    arrClone.map(movie => {
+        let totalMinutes = 0
+        if(movie.duration.length < 4){
+          let minute = movie.duration[0];
+          totalMinutes += Number(minute)
+          movie.duration = totalMinutes *60;
+        } else if(movie.duration.length < 7) {
+          let minute = movie.duration[0]+movie.duration[1];
+          totalMinutes += Number(minute)
+          movie.duration = totalMinutes;         
+        }else
+          {
+          const hourSplit = movie.duration.split(' ');
+          const fullHourToMinute = hourSplit[0][0] * 60;
+          totalMinutes += fullHourToMinute
+          const minutes = hourSplit[1].split('');
+          if(minutes.length < 5){
+            totalMinutes += Number(minutes[0])
+        } else {
+            const joinedMinutes = minutes[0] + minutes[1];
+            totalMinutes += Number(joinedMinutes)
+        }
+        console.log(totalMinutes)
+        movie.duration = totalMinutes
+        }
+
+      })
+    return arrClone  
+}
 
 // BONUS - Iteration 8: Best yearly rate average - Best yearly rate average
 // const {movies} = require('./data')
